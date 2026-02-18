@@ -395,10 +395,92 @@ function clearAdminForm() {
 function openBookingModal(id) {
     const p = products.find(prod => prod.id == id);
     currentProduct = p;
+
+    // Update modal preview
+    const previewContainer = document.getElementById('modal-product-preview');
+    if (previewContainer) {
+        previewContainer.innerHTML = `
+            <img src="${p.images[0] || 'assets/placeholder.png'}" style="width: 80px; height: 80px; border-radius: 10px; object-fit: cover;">
+            <div style="text-align: right;">
+                <div style="font-weight: bold; color: var(--gold);">${p.title}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">${p.price || ''}</div>
+            </div>
+        `;
+    }
+
     document.getElementById('booking-modal').classList.add('active');
+}
+
+function submitBooking() {
+    const name = document.getElementById('modal-name')?.value;
+    const phone = document.getElementById('modal-phone')?.value;
+    const address = document.getElementById('modal-address')?.value;
+
+    if (!name || !phone || !address) {
+        alert("يرجى ملء جميع الحقول المطلوبة");
+        return;
+    }
+
+    const productName = currentProduct ? currentProduct.title : "غير معروف";
+    const message = `طلب حجز جديد من الموقع:\n\nالمنتج: ${productName}\nالاسم: ${name}\nالهاتف: ${phone}\nالعنوان: ${address}`;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, '_blank');
+    closeModal('booking-modal');
+}
+
+function populateBookingSelect() {
+    const select = document.getElementById('booking-select-product');
+    if (!select) return;
+
+    select.innerHTML = '<option value="">-- اختر المنتج --</option>' +
+        products.map(p => `<option value="${p.id}">${p.title}</option>`).join('');
+}
+
+function updateBookingPreview() {
+    const select = document.getElementById('booking-select-product');
+    const preview = document.getElementById('general-booking-preview');
+    const img = document.getElementById('booking-preview-img');
+    const name = document.getElementById('booking-preview-name');
+
+    const product = products.find(p => p.id == select.value);
+    if (product) {
+        preview.style.display = 'flex';
+        img.src = product.images[0] || 'assets/placeholder.png';
+        name.textContent = product.title;
+    } else {
+        preview.style.display = 'none';
+    }
+}
+
+function submitGeneralBooking() {
+    const productId = document.getElementById('booking-select-product')?.value;
+    const name = document.getElementById('booking-name')?.value;
+    const phone = document.getElementById('booking-phone')?.value;
+    const address = document.getElementById('booking-address')?.value;
+
+    if (!productId || !name || !phone || !address) {
+        alert("يرجى اختيار المنتج وملء جميع الحقول");
+        return;
+    }
+
+    const product = products.find(p => p.id == productId);
+    const productName = product ? product.title : "غير معروف";
+
+    const message = `طلب حجز جديد من الموقع:\n\nالمنتج: ${productName}\nالاسم: ${name}\nالهاتف: ${phone}\nالعنوان: ${address}`;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, '_blank');
+}
+
+function sendInquiry(productTitle) {
+    const message = `مرحباً، أود الاستفسار عن منتج: ${productTitle}`;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
 }
 
 function shareProduct(id) {
     const url = window.location.origin + window.location.pathname + `#product-${id}`;
     navigator.clipboard.writeText(url).then(() => alert("تم نسخ الرابط"));
 }
+
