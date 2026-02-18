@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>روعة العسل للتجارة العامة - الرائد في منتجات العناية</title>
+    <meta name="description"
+        content="شركة روعة العسل للتجارة العامة المحدودة - متفوقون في منتجات العناية بالبشرة والشعر. مبيع جملة ومفرد في العراق.">
+    <meta name="keywords" content="عناية بالبشرة, عناية بالشعر, روعة العسل, تجارة عامة, مستحضرات تجميل, العراق">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="#home" onclick="navigateTo('home')">
+                    <img src="assets/logo.png" alt="Rawaat Al Asal Logo" id="header-logo">
+                </a>
+            </div>
+            <nav>
+                <ul id="main-nav">
+                    <li><a href="#home" onclick="navigateTo('home')" class="nav-link active"
+                            data-section="home">الرئيسية</a></li>
+                    <li><a href="#products" onclick="navigateTo('products')" class="nav-link"
+                            data-section="products">المنتجات</a></li>
+                    <li><a href="#category-creams" onclick="navigateTo('category', 'كريمات')" class="nav-link"
+                            data-category="كريمات">كريمات</a></li>
+                    <li><a href="#category-hair" onclick="navigateTo('category', 'شعر')" class="nav-link"
+                            data-category="شعر">شعر</a></li>
+                    <li><a href="#category-cleanser" onclick="navigateTo('category', 'غسول')" class="nav-link"
+                            data-category="غسول">غسول</a></li>
+                    <li><a href="#category-toner" onclick="navigateTo('category', 'تونر')" class="nav-link"
+                            data-category="تونر">تونر</a></li>
+                    <li><a href="#category-sunscreen" onclick="navigateTo('category', 'واقي شمس')" class="nav-link"
+                            data-category="واقي شمس">واقي شمس</a></li>
+                    <li><a href="#category-care-sets" onclick="navigateTo('category', 'سيتات عناية')" class="nav-link"
+                            data-category="سيتات عناية">سيتات عناية</a></li>
+                    <li><a href="#booking" onclick="navigateTo('booking')" class="nav-link" data-section="booking">طلب
+                            حجز</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app-container">
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="home-hero">
+                <div class="logo-large">
+                    <img src="assets/logo.png" alt="Rawaat Al Asal" style="max-width: 250px;">
+                </div>
+                <h1>شركة روعة العسل للتجارة العامة المحدودة</h1>
+                <p class="intro-text">
+                    شركة متخصصة في منتجات العناية بالبشرة والشعر<br>
+                    مبيع مفرد وجملة
+                </p>
+                <a href="https://www.facebook.com/profile.php?id=61570371899928" target="_blank" class="fb-btn">
+                    <i class="fab fa-facebook-f"></i>
+                    تابعنا على فيسبوك
+                </a>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="section">
+            <h2 id="section-title">جميع المنتجات</h2>
+            <div id="products-list" class="products-grid">
+                <!-- Products will be rendered here -->
+            </div>
+        </section>
+
+        <!-- Product Details Section -->
+        <section id="product-details" class="section">
+            <div class="details-container" id="details-content">
+                <!-- Details will be rendered here -->
+            </div>
+        </section>
+
+        <!-- Booking Page Section -->
+        <section id="booking" class="section">
+            <h2>حجز طلب جديد</h2>
+            <div class="admin-login">
+                <div class="form-group">
+                    <label>اختر المنتج</label>
+                    <select id="booking-select-product" onchange="updateBookingPreview()">
+                        <!-- Options will be populated -->
+                    </select>
+                </div>
+                <div id="general-booking-preview" class="booking-preview" style="display: none;">
+                    <img src="" id="booking-preview-img">
+                    <span id="booking-preview-name"></span>
+                </div>
+                <div class="form-group">
+                    <label>الاسم الكامل</label>
+                    <input type="text" id="booking-name" placeholder="أدخل اسمك الكامل">
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف</label>
+                    <input type="text" id="booking-phone" placeholder="رقم الهاتف">
+                </div>
+                <div class="form-group">
+                    <label>العنوان</label>
+                    <textarea id="booking-address" placeholder="عنوان التوصيل بالتفصيل"></textarea>
+                </div>
+                <button class="btn btn-whatsapp" style="width: 100%; padding: 15px;" onclick="submitGeneralBooking()">
+                    إرسال الطلب عبر واتساب
+                </button>
+            </div>
+        </section>
+
+        <!-- (Admin Login is now handled via a Modal, section removed) -->
+
+        <!-- Admin Panel Section (Removed as separate section, now integrated) -->
+
+    </main>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('booking-modal')">&times;</span>
+            <h3 style="margin-bottom: 20px;">حجز منتج</h3>
+            <div id="modal-product-preview" class="booking-preview">
+                <!-- Preview content -->
+            </div>
+            <div class="form-group">
+                <label>الاسم الكامل</label>
+                <input type="text" id="modal-name" placeholder="أدخل اسمك الكامل">
+            </div>
+            <div class="form-group">
+                <label>رقم الهاتف</label>
+                <input type="text" id="modal-phone" placeholder="رقم الهاتف">
+            </div>
+            <div class="form-group">
+                <label>العنوان</label>
+                <textarea id="modal-address" placeholder="عنوان التوصيل"></textarea>
+            </div>
+            <button class="btn btn-whatsapp" style="width: 100%; padding: 15px;" onclick="submitBooking()">
+                إرسال الطلب عبر واتساب
+            </button>
+        </div>
+    </div>
+
+    <!-- Product Management Modal (Add/Edit) -->
+    <div id="product-modal" class="modal">
+        <!-- ... existing product modal content ... -->
+        <div class="modal-content" style="max-width: 600px; text-align: right;">
+            <span class="close-modal" onclick="closeModal('product-modal')">&times;</span>
+            <h3 id="modal-title-text" style="margin-bottom: 20px; color: var(--gold);">إضافة منتج جديد</h3>
+
+            <input type="hidden" id="edit-id">
+            <div class="form-group">
+                <label>اسم المنتج</label>
+                <input type="text" id="prod-title">
+            </div>
+            <div class="form-group">
+                <label>التصنيف</label>
+                <select id="prod-category">
+                    <option value="كريمات">كريمات</option>
+                    <option value="شعر">شعر</option>
+                    <option value="غسول">غسول</option>
+                    <option value="تونر">تونر</option>
+                    <option value="واقي شمس">واقي شمس</option>
+                    <option value="سيتات عناية">سيتات عناية</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>السعر</label>
+                <input type="text" id="prod-price">
+            </div>
+            <div class="form-group">
+                <label>وصف قصير (يظهر في البطاقة)</label>
+                <input type="text" id="prod-short">
+            </div>
+            <div class="form-group">
+                <label>الوصف الكامل</label>
+                <textarea id="prod-full" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label>صور المنتج (يمكنك رفع ملفات أو وضع روابط)</label>
+                <div id="modal-image-inputs">
+                    <!-- Dynamic inputs will go here -->
+                </div>
+                <div style="margin-top: 10px; display: flex; gap: 10px;">
+                    <input type="file" id="image-file-picker" accept="image/*" style="display: none;"
+                        onchange="handleFileSelect(this)">
+                    <button class="btn btn-details" type="button"
+                        onclick="document.getElementById('image-file-picker').click()">
+                        <i class="fas fa-upload"></i> رفع صورة من الجهاز
+                    </button>
+                    <button class="btn btn-details" type="button" onclick="addImageLinkRow('')">
+                        <i class="fas fa-link"></i> إضافة رابط صورة
+                    </button>
+                </div>
+            </div>
+            <button class="btn btn-book" style="width: 100%; padding: 15px;" onclick="saveProduct()">حفظ المنتج</button>
+        </div>
+    </div>
+
+    <!-- Site Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px; text-align: right;">
+            <span class="close-modal" onclick="closeModal('settings-modal')">&times;</span>
+            <h3 style="margin-bottom: 20px; color: var(--gold);">إعدادات الموقع العامة</h3>
+            <div class="form-group">
+                <label>عنوان الشركة</label>
+                <input type="text" id="set-title">
+            </div>
+            <div class="form-group">
+                <label>نص التعريف</label>
+                <textarea id="set-text" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>رابط فيسبوك</label>
+                <input type="text" id="set-fb">
+            </div>
+            <div class="form-group">
+                <label>مسار اللوجو (مثلاً assets/logo.png)</label>
+                <input type="text" id="set-logo">
+            </div>
+            <button class="btn btn-edit" style="width: 100%; padding: 15px;" onclick="saveSiteSettings()">حفظ
+                الإعدادات</button>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content" style="max-width: 400px; text-align: center; position: relative;">
+            <span class="close-modal" onclick="closeModal('admin-modal')">&times;</span>
+            <h3 style="margin-bottom: 20px; color: var(--gold);">دخول الإدارة</h3>
+            <div class="form-group">
+                <input type="password" id="admin-pass-input" placeholder="كلمة المرور" style="text-align: center;">
+            </div>
+            <button class="btn btn-book" style="width: 100%; padding: 12px;" onclick="doAdminLogin()">دخول</button>
+        </div>
+    </div>
+
+    <!-- Admin Floating Button -->
+    <div id="admin-controls"
+        style="display: none; position: fixed; bottom: 80px; left: 20px; z-index: 1001; flex-direction: column; gap: 10px;">
+        <button class="btn btn-book"
+            style="border-radius: 50%; width: 60px; height: 60px; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 20px rgba(0,0,0,0.5);"
+            onclick="openAddProductModal()" title="إضافة منتج">
+            <i class="fas fa-plus"></i>
+        </button>
+        <button class="btn btn-edit"
+            style="border-radius: 50%; width: 50px; height: 50px; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3);"
+            onclick="openSettingsModal()" title="إعدادات الموقع">
+            <i class="fas fa-cog"></i>
+        </button>
+        <button class="btn btn-delete"
+            style="border-radius: 50%; width: 40px; height: 40px; font-size: 1rem; display: flex; align-items: center; justify-content: center; opacity: 0.8;"
+            onclick="adminLogout()" title="تسجيل خروج">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+
+    <a href="javascript:void(0)" onclick="openAdminModal()" class="admin-entry-btn">دخول الإدارة</a>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
